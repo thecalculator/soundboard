@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
+    
     
     var sounds : [Sound] = []
     var audioPlayer = AVAudioPlayer()
@@ -24,11 +24,17 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.delegate = self
         tableView.dataSource = self
         
-        
-    
+        //Needed or else doesnt play recording when app is forced closed on phone
+        let NextVC = AddRecodingViewController()
+        NextVC.recoderSetup()
         
     }
-
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         return sounds.count
@@ -37,7 +43,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         do{
-        try audioPlayer = AVAudioPlayer(data: sounds[indexPath.row].audio! as Data)
+            try audioPlayer = AVAudioPlayer(data: sounds[indexPath.row].audio! as Data)
         }catch{
             print("error in getting audio")
         }
@@ -49,7 +55,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     override func viewWillAppear(_ animated: Bool) {
         let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
         do{
-        try sounds = context.fetch(Sound.fetchRequest())
+            try sounds = context.fetch(Sound.fetchRequest())
         } catch{
             print("error in reading core data")
         }
@@ -65,7 +71,27 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         return cell
         
     }
-
-
+    
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+        if editingStyle == .delete{
+            let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+            context.delete(sounds[indexPath.row])
+            (UIApplication.shared.delegate as! AppDelegate).saveContext()
+            
+            
+            do{
+                let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
+                try sounds = context.fetch(Sound.fetchRequest())
+                tableView.reloadData()
+            } catch{
+                print("error in reading core data")
+            }
+        }
+        
+        
+        
+    }
+    
 }
 
