@@ -99,6 +99,7 @@
 				TargetAttributes = {
 					C1A717D61F34DEA9002A2A40 = {
 						CreatedOnToolsVersion = 8.3.3;
+						DevelopmentTeam = Q48V538VT9;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -266,6 +267,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = Q48V538VT9;
 				INFOPLIST_FILE = "Sound Board/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.cool-apps.Sound-Board";
@@ -278,6 +280,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = Q48V538VT9;
 				INFOPLIST_FILE = "Sound Board/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.cool-apps.Sound-Board";
